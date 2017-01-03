@@ -30,8 +30,8 @@ namespace UnclePaulsSuperFancyPhotoSoftware
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        List<BitmapImage> importedImagesList = new List<BitmapImage>();
-        List<WriteableBitmap> exportedImagesList = new List<WriteableBitmap>();
+        List<ImageHolder> importedImagesList = new List<ImageHolder>();
+        List<ImageSource> exportedImagesList = new List<ImageSource>();
         int importOffset = 0;
         int exportOffset = 0;
         List<Image> importUIImages = new List<Image>();
@@ -40,8 +40,8 @@ namespace UnclePaulsSuperFancyPhotoSoftware
         Grid layoutRoot;
         List<CropSquare> cropSquares = new List<CropSquare>();
 
-        BitmapImage SelectedImage;
-        
+        ImageHolder SelectedImage;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -56,6 +56,7 @@ namespace UnclePaulsSuperFancyPhotoSoftware
             exportUIImages.Add(exportImage3);
             exportUIImages.Add(exportImage4);
             layoutRoot = this.photoSquare;
+            SelectedImage = new ImageHolder();
         }
 
         private async void importImages_Click(object sender, RoutedEventArgs e)
@@ -70,13 +71,17 @@ namespace UnclePaulsSuperFancyPhotoSoftware
 
             var files = await picker.PickMultipleFilesAsync();
 
+            ImageHolder tempHolder;
             // Application now has read/write access to the picked file(s)
             foreach (Windows.Storage.StorageFile file in files)
             {
+                tempHolder = new ImageHolder();
                 var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
                 var image = new BitmapImage();
+                tempHolder.Image = image;
+                tempHolder.File = file;
                 image.SetSource(stream);
-                importedImagesList.Add(image
+                importedImagesList.Add(tempHolder
                     );
             }
             UpdateImportUIImages();
@@ -87,7 +92,7 @@ namespace UnclePaulsSuperFancyPhotoSoftware
             {
                 if (importedImagesList.Count > i)
                 {
-                    importUIImages[i].Source = importedImagesList[i + importOffset];
+                    importUIImages[i].Source = importedImagesList[i + importOffset].Image;
                 }
                 else
                 {
@@ -129,8 +134,9 @@ namespace UnclePaulsSuperFancyPhotoSoftware
 
         private void SetMainPicture(int number)
         {
-            mainImage.Source = importedImagesList[number + importOffset];
-            SelectedImage = importedImagesList[number + importOffset];
+            mainImage.Source = importedImagesList[number + importOffset].Image;
+            SelectedImage.File = importedImagesList[number + importOffset].File;
+            SelectedImage.Image = importedImagesList[number + importOffset].Image;
         }
 
 
@@ -170,7 +176,7 @@ namespace UnclePaulsSuperFancyPhotoSoftware
 
         private void photoSquare_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            foreach(CropSquare cropSquare in cropSquares)
+            foreach (CropSquare cropSquare in cropSquares)
             {
                 RenederCropSquare(cropSquare);
             }
@@ -178,13 +184,13 @@ namespace UnclePaulsSuperFancyPhotoSoftware
         void RenederCropSquare(CropSquare cropSquare)
         {
             cropSquare.Rectangle.Fill = new SolidColorBrush(Windows.UI.Colors.Transparent);
-            cropSquare.Rectangle.Width = mainImage.ActualWidth * cropSquare.Width*Math.Cos(cropSquare.rotate.Angle * (Math.PI / 180)) + mainImage.ActualHeight * cropSquare.Height * Math.Sin(cropSquare.rotate.Angle * (Math.PI / 180));
-            cropSquare.Rectangle.Height = mainImage.ActualHeight * cropSquare.Height * Math.Cos(cropSquare.rotate.Angle * (Math.PI / 180))+ mainImage.ActualWidth * cropSquare.Width * Math.Sin(cropSquare.rotate.Angle * (Math.PI / 180));
+            cropSquare.Rectangle.Width = mainImage.ActualWidth * cropSquare.Width * Math.Cos(cropSquare.rotate.Angle * (Math.PI / 180)) + mainImage.ActualHeight * cropSquare.Height * Math.Sin(cropSquare.rotate.Angle * (Math.PI / 180));
+            cropSquare.Rectangle.Height = mainImage.ActualHeight * cropSquare.Height * Math.Cos(cropSquare.rotate.Angle * (Math.PI / 180)) + mainImage.ActualWidth * cropSquare.Width * Math.Sin(cropSquare.rotate.Angle * (Math.PI / 180));
             cropSquare.Rectangle.Stroke = new SolidColorBrush(Windows.UI.Colors.Black);
-            cropSquare.Rectangle.StrokeThickness = (mainImage.ActualWidth+ mainImage.ActualHeight)*.0005;
+            cropSquare.Rectangle.StrokeThickness = (mainImage.ActualWidth + mainImage.ActualHeight) * .0005;
             cropSquare.Rectangle.HorizontalAlignment = HorizontalAlignment.Left;
             cropSquare.Rectangle.VerticalAlignment = VerticalAlignment.Top;
-            cropSquare.Rectangle.Margin = new Thickness(mainImage.ActualWidth * cropSquare.Left+Math.Abs((layoutRoot.RenderSize.Width - mainImage.RenderSize.Width) / 2), mainImage.ActualHeight * cropSquare.Top + Math.Abs((layoutRoot.RenderSize.Height - mainImage.RenderSize.Height) /2), 0, 0);
+            cropSquare.Rectangle.Margin = new Thickness(mainImage.ActualWidth * cropSquare.Left + Math.Abs((layoutRoot.RenderSize.Width - mainImage.RenderSize.Width) / 2), mainImage.ActualHeight * cropSquare.Top + Math.Abs((layoutRoot.RenderSize.Height - mainImage.RenderSize.Height) / 2), 0, 0);
             cropSquare.rotate.Angle = 0;
             cropSquare.Rectangle.RenderTransform = cropSquare.rotate;
             Grid.SetColumn(cropSquare.Rectangle, 1);
@@ -210,7 +216,7 @@ namespace UnclePaulsSuperFancyPhotoSoftware
             cropSquare.z.Height = (mainImage.ActualWidth + mainImage.ActualHeight) * .004;
             Grid.SetColumn(cropSquare.z, 1);
             double hyp = Math.Sqrt(cropSquare.Rectangle.Height * cropSquare.Rectangle.Height + cropSquare.Rectangle.Width * cropSquare.Rectangle.Width);
-            cropSquare.z.Margin = new Thickness(cropSquare.Rectangle.Margin.Left + hyp * Math.Cos((cropSquare.rotate.Angle) * (Math.PI / 180) + Math.Atan(cropSquare.Rectangle.Height / cropSquare.Rectangle.Width)) - cropSquare.z.Width / 2, 
+            cropSquare.z.Margin = new Thickness(cropSquare.Rectangle.Margin.Left + hyp * Math.Cos((cropSquare.rotate.Angle) * (Math.PI / 180) + Math.Atan(cropSquare.Rectangle.Height / cropSquare.Rectangle.Width)) - cropSquare.z.Width / 2,
                 cropSquare.Rectangle.Margin.Top + hyp * Math.Sin((cropSquare.rotate.Angle) * (Math.PI / 180) + Math.Atan(cropSquare.Rectangle.Height / cropSquare.Rectangle.Width)) - cropSquare.z.Height / 2, 0, 0);
             cropSquare.z.HorizontalAlignment = HorizontalAlignment.Left;
             cropSquare.z.VerticalAlignment = VerticalAlignment.Top;
@@ -236,165 +242,57 @@ namespace UnclePaulsSuperFancyPhotoSoftware
 
         private async void cut_Click(object sender, RoutedEventArgs e)
         {
-            CartisanPoint x;
-            CartisanPoint y;
-            CartisanPoint z;
-            CartisanPoint w;
+            Point x;
+            Point y;
+            Point z;
+            Point w;
+            ImageHolder TempImage;
             foreach (CropSquare cropSquare in cropSquares)
             {
-                x = new CartisanPoint(cropSquare.Left * SelectedImage.PixelWidth, SelectedImage.PixelHeight - cropSquare.Top * SelectedImage.PixelHeight);
-                y = new CartisanPoint(cropSquare.Left * SelectedImage.PixelWidth + cropSquare.Width * SelectedImage.PixelWidth * Math.Cos(cropSquare.rotate.Angle * (Math.PI / 180)),
-                    SelectedImage.PixelHeight - (cropSquare.Top * SelectedImage.PixelHeight + cropSquare.Width * SelectedImage.PixelWidth * Math.Sin(cropSquare.rotate.Angle * (Math.PI / 180))));
+                x = new Point(cropSquare.Left * SelectedImage.Image.PixelWidth, cropSquare.Top * SelectedImage.Image.PixelHeight);
+                y = new Point(cropSquare.Left * SelectedImage.Image.PixelWidth + cropSquare.Width * SelectedImage.Image.PixelWidth * Math.Cos(cropSquare.rotate.Angle * (Math.PI / 180)),
+                     (cropSquare.Top * SelectedImage.Image.PixelHeight + cropSquare.Width * SelectedImage.Image.PixelWidth * Math.Sin(cropSquare.rotate.Angle * (Math.PI / 180))));
 
 
-                double hyp = Math.Sqrt(cropSquare.Height * cropSquare.Height * SelectedImage.PixelHeight * SelectedImage.PixelHeight + cropSquare.Width * cropSquare.Width * SelectedImage.PixelWidth * SelectedImage.PixelWidth);
+                double hyp = Math.Sqrt(cropSquare.Height * cropSquare.Height * SelectedImage.Image.PixelHeight * SelectedImage.Image.PixelHeight + cropSquare.Width * cropSquare.Width * SelectedImage.Image.PixelWidth * SelectedImage.Image.PixelWidth);
 
-                z = new CartisanPoint(cropSquare.Width * SelectedImage.PixelWidth + hyp * Math.Cos((cropSquare.rotate.Angle) * (Math.PI / 180) + Math.Atan((cropSquare.Height * SelectedImage.PixelHeight) / (cropSquare.Width * SelectedImage.PixelWidth))),
-                    SelectedImage.PixelHeight - (cropSquare.Top * SelectedImage.PixelHeight + hyp * Math.Sin((cropSquare.rotate.Angle) * (Math.PI / 180) + Math.Atan((cropSquare.Height * SelectedImage.PixelHeight) / (cropSquare.Width * SelectedImage.PixelWidth)))));
+                z = new Point(cropSquare.Width * SelectedImage.Image.PixelWidth + hyp * Math.Cos((cropSquare.rotate.Angle) * (Math.PI / 180) + Math.Atan((cropSquare.Height * SelectedImage.Image.PixelHeight) / (cropSquare.Width * SelectedImage.Image.PixelWidth))),
+                     (cropSquare.Top * SelectedImage.Image.PixelHeight + hyp * Math.Sin((cropSquare.rotate.Angle) * (Math.PI / 180) + Math.Atan((cropSquare.Height * SelectedImage.Image.PixelHeight) / (cropSquare.Width * SelectedImage.Image.PixelWidth)))));
 
-                w = new CartisanPoint(cropSquare.Left * SelectedImage.PixelWidth - cropSquare.Height * SelectedImage.PixelHeight * Math.Sin(cropSquare.rotate.Angle * (Math.PI / 180)),
-                    SelectedImage.PixelHeight - (cropSquare.Top * SelectedImage.PixelHeight + cropSquare.Height * SelectedImage.PixelHeight * Math.Cos(cropSquare.rotate.Angle * (Math.PI / 180))));
-                var newImage = await GetCroppedBitmapAsync(SelectedImage, new Point(x.x, x.y), new Size(3,3), 2);
-                exportedImagesList.Add(newImage);
+                w = new Point(cropSquare.Left * SelectedImage.Image.PixelWidth - cropSquare.Height * SelectedImage.Image.PixelHeight * Math.Sin(cropSquare.rotate.Angle * (Math.PI / 180)),
+                     (cropSquare.Top * SelectedImage.Image.PixelHeight + cropSquare.Height * SelectedImage.Image.PixelHeight * Math.Cos(cropSquare.rotate.Angle * (Math.PI / 180))));
+                TempImage = new ImageHolder();
+                exportedImagesList.Add( await CSWindowsStoreAppCropBitmap.CropBitmap.GetCroppedBitmapAsync(SelectedImage.File, x, new Size(Math.Abs(x.X - y.X), Math.Abs(x.Y - w.Y)), 1));
                 UpdateExportUIImages();
             }
 
         }
-        async public static Task<WriteableBitmap> GetCroppedBitmapAsync(BitmapImage originalImgFile,
-    Point startPoint, Size corpSize, double scale)
+        public class CropSquare
         {
-            if (double.IsNaN(scale) || double.IsInfinity(scale))
+            public Rectangle Rectangle = new Rectangle();
+            public Ellipse x = new Ellipse();
+            public Ellipse y = new Ellipse();
+            public Ellipse z = new Ellipse();
+            public Ellipse w = new Ellipse();
+            public Ellipse rotation = new Ellipse();
+            public RotateTransform rotate = new RotateTransform();
+            public double Width = .1;
+            public double Height = .1;
+            public double Left = .1;
+            public double Top = .1;
+            public CropSquare()
             {
-                scale = 1;
+                Width = .1;
+                Height = .1;
+                Left = .1;
+                Top = .1;
             }
-            BitmapImage bitmap = originalImgFile;
+        }
 
-            RandomAccessStreamReference rasr = RandomAccessStreamReference.CreateFromUri(bitmap.UriSource);
-
-            Debug.WriteLine("here0");
-            var streamWithContent = await rasr.OpenReadAsync();
-
-            byte[] buffer = new byte[streamWithContent.Size];
-
-            await streamWithContent.ReadAsync(buffer.AsBuffer(), (uint)streamWithContent.Size, InputStreamOptions.None);
-            StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync("temp.jpeg", CreationCollisionOption.ReplaceExisting);
-            using (IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.ReadWrite))
-            {
-                using (IOutputStream outputStream = fileStream.GetOutputStreamAt(0))
-                {
-                    using (DataWriter dataWriter = new DataWriter(outputStream))
-                    {
-                        Debug.WriteLine("here0");
-                        dataWriter.WriteBytes(buffer);
-                        await dataWriter.StoreAsync(); // 
-                        dataWriter.DetachStream();
-                    }
-                    // write data on the empty file:
-                    await outputStream.FlushAsync();
-                }
-                await fileStream.FlushAsync();
-            }
-
-            // Convert start point and size to integer. 
-            uint startPointX = (uint)Math.Floor(startPoint.X * scale);
-            uint startPointY = (uint)Math.Floor(startPoint.Y * scale);
-            uint height = (uint)Math.Floor(corpSize.Height * scale);
-            uint width = (uint)Math.Floor(corpSize.Width * scale);
-
-
-            using (IRandomAccessStream stream = await file.OpenReadAsync())
-            {
-
-
-                Debug.WriteLine("here0");
-                // Create a decoder from the stream. With the decoder, we can get  
-                // the properties of the image. 
-                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-
-                // The scaledSize of original image. 
-                uint scaledWidth = (uint)Math.Floor(decoder.PixelWidth * scale);
-                uint scaledHeight = (uint)Math.Floor(decoder.PixelHeight * scale);
-
-
-
-                // Refine the start point and the size.  
-                if (startPointX + width > scaledWidth)
-                {
-                    startPointX = scaledWidth - width;
-                }
-
-
-                if (startPointY + height > scaledHeight)
-                {
-                    startPointY = scaledHeight - height;
-                }
-
-
-                // Create cropping BitmapTransform and define the bounds. 
-                BitmapTransform transform = new BitmapTransform();
-                BitmapBounds bounds = new BitmapBounds();
-                bounds.X = startPointX;
-                bounds.Y = startPointY;
-                bounds.Height = height;
-                bounds.Width = width;
-                transform.Bounds = bounds;
-
-                Debug.WriteLine("here0");
-
-                transform.ScaledWidth = scaledWidth;
-                transform.ScaledHeight = scaledHeight;
-
-                // Get the cropped pixels within the bounds of transform. 
-                PixelDataProvider pix = await decoder.GetPixelDataAsync(
-                    BitmapPixelFormat.Bgra8,
-                    BitmapAlphaMode.Straight,
-                    transform,
-                    ExifOrientationMode.IgnoreExifOrientation,
-                    ColorManagementMode.ColorManageToSRgb);
-                byte[] pixels = pix.DetachPixelData();
-
-
-                // Stream the bytes into a WriteableBitmap 
-                WriteableBitmap cropBmp = new WriteableBitmap((int)width, (int)height);
-                Stream pixStream = cropBmp.PixelBuffer.AsStream();
-                pixStream.Write(pixels, 0, (int)(width * height * 4));
-                Debug.WriteLine("here0");
-                return (cropBmp);
-            }
-
-
+        public class ImageHolder
+        {
+            public StorageFile File;
+            public BitmapImage Image;
         }
     }
-    public class CropSquare
-    {
-        public Rectangle Rectangle = new Rectangle();
-        public Ellipse x = new Ellipse();
-        public Ellipse y = new Ellipse();
-        public Ellipse z = new Ellipse();
-        public Ellipse w = new Ellipse();
-        public Ellipse rotation = new Ellipse();
-        public RotateTransform rotate = new RotateTransform();
-        public double Width = .1;
-        public double Height = .1;
-        public double Left = .1;
-        public double Top = .1;
-        public CropSquare()
-        {
-            Width = .1;
-            Height = .1;
-            Left = .1;
-            Top = .1;
-        }
-    }
-    public class CartisanPoint
-    {
-        public double x = 0;
-        public double y = 0;
-        public CartisanPoint(double X, double Y)
-        {
-            x = X;
-            y = Y;
-        }
-    }
-
 }
