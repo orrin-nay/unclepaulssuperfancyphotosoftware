@@ -60,16 +60,23 @@
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="leftButton" Content="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Height="auto" Width="auto"/>
-                    <Button x:Name="rightButton" Content="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="6" Height="auto" Width="auto"/>
-                    <Image x:Name="exportImage0" Grid.Column="1"/>
-                    <Image x:Name="exportImage1" Grid.Column="2"/>
-                    <Image x:Name="exportImage2" Grid.Column="3"/>
-                    <Image x:Name="exportImage3" Grid.Column="4"/>
-                    <Image x:Name="exportImage4" Grid.Column="5"/>
+                    <Button x:Name="leftButton" Content="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Height="auto" Width="auto" Click="MoveExportedImagesLeft_Click"/>
+                    <Button x:Name="rightButton" Content="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="6" Height="auto" Width="auto" Click="MoveExportedImagesRight_Click"/>
+                    <Image x:Name="exportImage0" Grid.Column="1" PointerPressed="exportUIImage0Selected_Click"/>
+                    <Image x:Name="exportImage1" Grid.Column="2" PointerPressed="exportUIImage1Selected_Click"/>
+                    <Image x:Name="exportImage2" Grid.Column="3" PointerPressed="exportUIImage2Selected_Click"/>
+                    <Image x:Name="exportImage3" Grid.Column="4" PointerPressed="exportUIImage3Selected_Click"/>
+                    <Image x:Name="exportImage4" Grid.Column="5" PointerPressed="exportUIImage4Selected_Click"/>
                 </Grid>
-                <Button x:Name="exportImages" Content="Export" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row ="0" Height="32"/>
-                <TextBox x:Name="exportedImages" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Exported Photos" VerticalAlignment="Top" Grid.Row ="0" />
+                <Grid Grid.Row ="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="DeleteImage" Content="Delete Image" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column ="1" Height="32" Click="DeleteImage_Click"/>
+                    <TextBox x:Name="exportedImages" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Exported Photos" VerticalAlignment="Top" Grid.Column ="0" />
+                </Grid>
+                <Button x:Name="exportImages" Content="Export" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row ="0" Height="32" Click="exportImages_Click"/>
             </Grid>
         </Grid>
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Column="1">

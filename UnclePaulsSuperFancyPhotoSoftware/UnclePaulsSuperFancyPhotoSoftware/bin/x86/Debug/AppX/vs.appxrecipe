@@ -28,13 +28,13 @@
     <AppXManifest Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-01-03T00:08:40.438</Modified>
+      <Modified>2017-01-04T05:55:22.498</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\UnclePaulsSuperFancyPhotoSoftware.exe">
       <PackagePath>entrypoint\UnclePaulsSuperFancyPhotoSoftware.exe</PackagePath>
-      <Modified>2017-01-03T00:08:40.253</Modified>
+      <Modified>2017-01-04T05:55:22.277</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Naylo\.nuget\packages\Microsoft.CSharp\4.0.0\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -497,11 +497,11 @@
     <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-01-03T00:00:53.511</Modified>
+      <Modified>2017-01-04T05:54:11.415</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\Core\UnclePaulsSuperFancyPhotoSoftware.exe">
       <PackagePath>UnclePaulsSuperFancyPhotoSoftware.exe</PackagePath>
-      <Modified>2017-01-03T00:08:40.435</Modified>
+      <Modified>2017-01-04T05:55:22.495</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

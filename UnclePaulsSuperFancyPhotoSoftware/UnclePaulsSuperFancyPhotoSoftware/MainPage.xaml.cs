@@ -10,6 +10,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -37,10 +38,17 @@ namespace UnclePaulsSuperFancyPhotoSoftware
         List<Image> importUIImages = new List<Image>();
         List<Image> exportUIImages = new List<Image>();
 
+        int recMoving;
+        int cornerMoving;
         Grid layoutRoot;
         List<CropSquare> cropSquares = new List<CropSquare>();
 
+        Windows.UI.Input.PointerPoint lastPresedPoint;
+
         ImageHolder SelectedImage;
+        bool dragSquare = false;
+        bool dragCorner = false;
+        int SelectedexportImage = -1;
 
         public MainPage()
         {
@@ -57,6 +65,8 @@ namespace UnclePaulsSuperFancyPhotoSoftware
             exportUIImages.Add(exportImage4);
             layoutRoot = this.photoSquare;
             SelectedImage = new ImageHolder();
+            mainImage.PointerMoved += new PointerEventHandler(mainPic_Drag);
+            mainImage.PointerReleased += new PointerEventHandler(mainPic_unClick);
         }
 
         private async void importImages_Click(object sender, RoutedEventArgs e)
@@ -106,12 +116,39 @@ namespace UnclePaulsSuperFancyPhotoSoftware
             {
                 if (exportedImagesList.Count > i)
                 {
-                    exportUIImages[i].Source = exportedImagesList[i];
+                    exportUIImages[i].Source = exportedImagesList[i + exportOffset];
+                    if (SelectedexportImage == i + exportOffset)
+                    {
+                        exportUIImages[i].Opacity = .5;
+                    }
+                    else
+                    {
+                        exportUIImages[i].Opacity = 1;
+                    }
                 }
                 else
                 {
-                    break;
+                    exportUIImages[i].Source = null;
                 }
+            }
+        }
+
+
+        private void MoveExportedImagesRight_Click(object sender, RoutedEventArgs e)
+        {
+            if (exportOffset + exportUIImages.Count < exportedImagesList.Count)
+            {
+                exportOffset++;
+                UpdateExportUIImages();
+            }
+        }
+
+        private void MoveExportedImagesLeft_Click(object sender, RoutedEventArgs e)
+        {
+            if (exportOffset > 0)
+            {
+                exportOffset--;
+                UpdateExportUIImages();
             }
         }
         private void MoveImportedImagesDown_Click(object sender, RoutedEventArgs e)
@@ -161,9 +198,51 @@ namespace UnclePaulsSuperFancyPhotoSoftware
             SetMainPicture(4);
         }
 
+        private void exportUIImage0Selected_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("Here");
+            HighlightImage(0);
+        }
+        private void exportUIImage1Selected_Click(object sender, RoutedEventArgs e)
+        {
+            HighlightImage(1);
+        }
+        private void exportUIImage2Selected_Click(object sender, RoutedEventArgs e)
+        {
+            HighlightImage(2);
+        }
+        private void exportUIImage3Selected_Click(object sender, RoutedEventArgs e)
+        {
+            HighlightImage(3);
+        }
+        private void exportUIImage4Selected_Click(object sender, RoutedEventArgs e)
+        {
+            HighlightImage(4);
+        }
+        private void HighlightImage(int num)
+        {
+            SelectedexportImage = num + exportOffset;
+            UpdateExportUIImages();
+        }
+
+        private void DeleteImage_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedexportImage != -1)
+            {
+                exportedImagesList.RemoveAt(SelectedexportImage);
+                SelectedexportImage = -1;
+                UpdateExportUIImages();
+            }
+        }
+
         private void addCutter_Click(object sender, RoutedEventArgs e)
         {
             var newCrop = new CropSquare();
+            newCrop.Rectangle.Name = cropSquares.Count.ToString();
+            newCrop.x.Name = cropSquares.Count.ToString() + ",0";
+            newCrop.y.Name = cropSquares.Count.ToString() + ",1";
+            newCrop.z.Name = cropSquares.Count.ToString() + ",2";
+            newCrop.w.Name = cropSquares.Count.ToString() + ",3";
             cropSquares.Add(newCrop);
             layoutRoot.Children.Add(newCrop.Rectangle);
             layoutRoot.Children.Add(newCrop.x);
@@ -171,6 +250,30 @@ namespace UnclePaulsSuperFancyPhotoSoftware
             layoutRoot.Children.Add(newCrop.z);
             layoutRoot.Children.Add(newCrop.w);
             layoutRoot.Children.Add(newCrop.rotation);
+            newCrop.Rectangle.PointerPressed += new PointerEventHandler(square_Click);
+            newCrop.Rectangle.PointerReleased += new PointerEventHandler(square_unClick);
+            newCrop.Rectangle.PointerMoved += new PointerEventHandler(square_Drag);
+            newCrop.Rectangle.PointerExited += new PointerEventHandler(square_Drag);
+
+            newCrop.x.PointerPressed += new PointerEventHandler(corner_Click);
+            newCrop.x.PointerReleased += new PointerEventHandler(corner_unClick);
+            newCrop.x.PointerMoved += new PointerEventHandler(corner_Drag);
+            newCrop.x.PointerExited += new PointerEventHandler(corner_Drag);
+
+            newCrop.y.PointerPressed += new PointerEventHandler(corner_Click);
+            newCrop.y.PointerReleased += new PointerEventHandler(corner_unClick);
+            newCrop.y.PointerMoved += new PointerEventHandler(corner_Drag);
+            newCrop.y.PointerExited += new PointerEventHandler(corner_Drag);
+
+            newCrop.z.PointerPressed += new PointerEventHandler(corner_Click);
+            newCrop.z.PointerReleased += new PointerEventHandler(corner_unClick);
+            newCrop.z.PointerMoved += new PointerEventHandler(corner_Drag);
+            newCrop.z.PointerExited += new PointerEventHandler(corner_Drag);
+
+            newCrop.w.PointerPressed += new PointerEventHandler(corner_Click);
+            newCrop.w.PointerReleased += new PointerEventHandler(corner_unClick);
+            newCrop.w.PointerMoved += new PointerEventHandler(corner_Drag);
+            newCrop.w.PointerExited += new PointerEventHandler(corner_Drag);
             RenederCropSquare(newCrop);
         }
 
@@ -184,8 +287,8 @@ namespace UnclePaulsSuperFancyPhotoSoftware
         void RenederCropSquare(CropSquare cropSquare)
         {
             cropSquare.Rectangle.Fill = new SolidColorBrush(Windows.UI.Colors.Transparent);
-            cropSquare.Rectangle.Width = mainImage.ActualWidth * cropSquare.Width * Math.Cos(cropSquare.rotate.Angle * (Math.PI / 180)) + mainImage.ActualHeight * cropSquare.Height * Math.Sin(cropSquare.rotate.Angle * (Math.PI / 180));
-            cropSquare.Rectangle.Height = mainImage.ActualHeight * cropSquare.Height * Math.Cos(cropSquare.rotate.Angle * (Math.PI / 180)) + mainImage.ActualWidth * cropSquare.Width * Math.Sin(cropSquare.rotate.Angle * (Math.PI / 180));
+            cropSquare.Rectangle.Width = mainImage.ActualWidth * cropSquare.Width;
+            cropSquare.Rectangle.Height = mainImage.ActualHeight * cropSquare.Height;
             cropSquare.Rectangle.Stroke = new SolidColorBrush(Windows.UI.Colors.Black);
             cropSquare.Rectangle.StrokeThickness = (mainImage.ActualWidth + mainImage.ActualHeight) * .0005;
             cropSquare.Rectangle.HorizontalAlignment = HorizontalAlignment.Left;
@@ -262,37 +365,179 @@ namespace UnclePaulsSuperFancyPhotoSoftware
                 w = new Point(cropSquare.Left * SelectedImage.Image.PixelWidth - cropSquare.Height * SelectedImage.Image.PixelHeight * Math.Sin(cropSquare.rotate.Angle * (Math.PI / 180)),
                      (cropSquare.Top * SelectedImage.Image.PixelHeight + cropSquare.Height * SelectedImage.Image.PixelHeight * Math.Cos(cropSquare.rotate.Angle * (Math.PI / 180))));
                 TempImage = new ImageHolder();
-                exportedImagesList.Add( await CSWindowsStoreAppCropBitmap.CropBitmap.GetCroppedBitmapAsync(SelectedImage.File, x, new Size(Math.Abs(x.X - y.X), Math.Abs(x.Y - w.Y)), 1));
+                exportedImagesList.Add(await CSWindowsStoreAppCropBitmap.CropBitmap.GetCroppedBitmapAsync(SelectedImage.File, x, new Size(Math.Abs(x.X - y.X), Math.Abs(x.Y - w.Y)), 1));
                 UpdateExportUIImages();
             }
 
         }
-        public class CropSquare
+
+        private void square_Click(object sender, PointerRoutedEventArgs e)
         {
-            public Rectangle Rectangle = new Rectangle();
-            public Ellipse x = new Ellipse();
-            public Ellipse y = new Ellipse();
-            public Ellipse z = new Ellipse();
-            public Ellipse w = new Ellipse();
-            public Ellipse rotation = new Ellipse();
-            public RotateTransform rotate = new RotateTransform();
-            public double Width = .1;
-            public double Height = .1;
-            public double Left = .1;
-            public double Top = .1;
-            public CropSquare()
+            dragCorner = false;
+            dragSquare = true;
+            Rectangle rec = sender as Rectangle;
+            recMoving = int.Parse(rec.Name);
+            lastPresedPoint = e.GetCurrentPoint(this);
+        }
+        private void square_unClick(object sender, PointerRoutedEventArgs e)
+        {
+            dragCorner = false;
+            dragSquare = false;
+        }
+        double x;
+        double y;
+
+        private void square_Drag(object sender, PointerRoutedEventArgs e)
+        {
+            if (dragSquare)
             {
-                Width = .1;
-                Height = .1;
-                Left = .1;
-                Top = .1;
+                Windows.UI.Input.PointerPoint pt = e.GetCurrentPoint(this);
+                x = pt.Position.X - lastPresedPoint.Position.X;
+                y = pt.Position.Y - lastPresedPoint.Position.Y;
+                lastPresedPoint = e.GetCurrentPoint(this);
+                cropSquares[recMoving].Left += x / mainImage.ActualWidth;
+                cropSquares[recMoving].Top += y / mainImage.ActualHeight;
+                RenederCropSquare(cropSquares[recMoving]);
+            }
+            else if (dragCorner)
+            {
+                corner_Drag(sender, e);
+            }
+
+        }
+        private void corner_Click(object sender, PointerRoutedEventArgs e)
+        {
+            dragSquare = false;
+            dragCorner = true;
+            Ellipse corner = sender as Ellipse;
+            string[] words = corner.Name.Split(',');
+            recMoving = int.Parse(words[0]);
+            cornerMoving = int.Parse(words[1]);
+            lastPresedPoint = e.GetCurrentPoint(this);
+        }
+        private void corner_unClick(object sender, PointerRoutedEventArgs e)
+        {
+            dragCorner = false;
+            dragSquare = false;
+        }
+        private void corner_Drag(object sender, PointerRoutedEventArgs e)
+        {
+            if (dragCorner)
+            {
+                switch (cornerMoving)
+                {
+                    case (0):
+                        //x moved
+                        Windows.UI.Input.PointerPoint pt = e.GetCurrentPoint(this);
+                        x = pt.Position.X - lastPresedPoint.Position.X;
+                        y = pt.Position.Y - lastPresedPoint.Position.Y;
+                        lastPresedPoint = e.GetCurrentPoint(this);
+                        cropSquares[recMoving].Width -= (x / mainImage.ActualWidth);
+                        cropSquares[recMoving].Height -= (y / mainImage.ActualHeight);
+
+                        cropSquares[recMoving].Left += (x / mainImage.ActualWidth);
+                        cropSquares[recMoving].Top += (y / mainImage.ActualHeight);
+                        RenederCropSquare(cropSquares[recMoving]);
+                        return;
+                    case (1):
+                        //y moved
+                        pt = e.GetCurrentPoint(this);
+                        x = pt.Position.X - lastPresedPoint.Position.X;
+                        y = pt.Position.Y - lastPresedPoint.Position.Y;
+                        lastPresedPoint = e.GetCurrentPoint(this);
+                        cropSquares[recMoving].Width += (x / mainImage.ActualWidth);
+                        cropSquares[recMoving].Height -= (y / mainImage.ActualHeight);
+
+                        cropSquares[recMoving].Top += (y / mainImage.ActualHeight);
+                        RenederCropSquare(cropSquares[recMoving]);
+                        return;
+                    case (2):
+                        //z moved
+                        pt = e.GetCurrentPoint(this);
+                        x = pt.Position.X - lastPresedPoint.Position.X;
+                        y = pt.Position.Y - lastPresedPoint.Position.Y;
+                        lastPresedPoint = e.GetCurrentPoint(this);
+                        cropSquares[recMoving].Width += (x / mainImage.ActualWidth);
+                        cropSquares[recMoving].Height += (y / mainImage.ActualHeight);
+                        RenederCropSquare(cropSquares[recMoving]);
+                        return;
+                    case (3):
+                        //w moved
+                        pt = e.GetCurrentPoint(this);
+                        x = pt.Position.X - lastPresedPoint.Position.X;
+                        y = pt.Position.Y - lastPresedPoint.Position.Y;
+                        lastPresedPoint = e.GetCurrentPoint(this);
+                        cropSquares[recMoving].Width -= (x / mainImage.ActualWidth);
+                        cropSquares[recMoving].Height += (y / mainImage.ActualHeight);
+
+                        cropSquares[recMoving].Left += (x / mainImage.ActualWidth);
+                        RenederCropSquare(cropSquares[recMoving]);
+                        return;
+                }
+            }
+            else if (dragSquare)
+            {
+                square_Drag(sender, e);
             }
         }
 
-        public class ImageHolder
+        private void mainPic_unClick(object sender, PointerRoutedEventArgs e)
         {
-            public StorageFile File;
-            public BitmapImage Image;
+            dragCorner = false;
+            dragSquare = false;
         }
+        private void mainPic_Drag(object sender, PointerRoutedEventArgs e)
+        {
+            if (dragSquare)
+            {
+                square_Drag(sender, e);
+            }
+            else if (dragCorner)
+            {
+                corner_Drag(sender, e);
+            }
+        }
+
+        private async void exportImages_Click(object sender, RoutedEventArgs e)
+        {
+            FileSavePicker savePicker = new FileSavePicker();
+            savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+
+            savePicker.FileTypeChoices.Add("PNG file", new List<string>() { ".png" });
+            savePicker.FileTypeChoices.Add("JPG file", new List<string>() { ".jpg" });
+            savePicker.FileTypeChoices.Add("JPEG file", new List<string>() { ".jpeg" });
+            savePicker.FileTypeChoices.Add("BMP file", new List<string>() { ".bmp" });
+
+
+            savePicker.SuggestedFileName = string.Format("NewImage.png");
+            StorageFile croppedImageFile = await savePicker.PickSaveFileAsync();
+        }
+    }
+    public class CropSquare
+    {
+        public Rectangle Rectangle = new Rectangle();
+        public Ellipse x = new Ellipse();
+        public Ellipse y = new Ellipse();
+        public Ellipse z = new Ellipse();
+        public Ellipse w = new Ellipse();
+        public Ellipse rotation = new Ellipse();
+        public RotateTransform rotate = new RotateTransform();
+        public double Width = .1;
+        public double Height = .1;
+        public double Left = .2;
+        public double Top = .2;
+        public CropSquare()
+        {
+            Width = .1;
+            Height = .1;
+            Left = .1;
+            Top = .1;
+        }
+    }
+
+    public class ImageHolder
+    {
+        public StorageFile File;
+        public BitmapImage Image;
     }
 }

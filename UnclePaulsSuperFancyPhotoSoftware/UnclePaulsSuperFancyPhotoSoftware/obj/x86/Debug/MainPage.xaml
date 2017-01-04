@@ -33,13 +33,13 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <TextBox x:ConnectionId='21' x:Name="Tools" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Tools" VerticalAlignment="Top" Grid.Row="0"/>
-                    <Button x:ConnectionId='22' x:Name="addCutter" Content="Add Cutter" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1"                        />
-                    <Button x:ConnectionId='23' x:Name="removeCutter" Content="Remove Cutter" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2"/>
-                    <Button x:ConnectionId='24' x:Name="cut" Content="Cut" HorizontalAlignment="Center" VerticalAlignment="Stretch" Grid.Row="3" Margin="38,0"                  />
+                    <TextBox x:ConnectionId='22' x:Name="Tools" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Tools" VerticalAlignment="Top" Grid.Row="0"/>
+                    <Button x:ConnectionId='23' x:Name="addCutter" Content="Add Cutter" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1"                        />
+                    <Button x:ConnectionId='24' x:Name="removeCutter" Content="Remove Cutter" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2"/>
+                    <Button x:ConnectionId='25' x:Name="cut" Content="Cut" HorizontalAlignment="Center" VerticalAlignment="Stretch" Grid.Row="3" Margin="38,0"                  />
                 </Grid>
-                <Grid x:ConnectionId='19' Grid.Column="1" Name="photoSquare"                                      >
-                    <Image x:ConnectionId='20' x:Name="mainImage" Grid.Column="1"/>
+                <Grid x:ConnectionId='20' Grid.Column="1" Name="photoSquare"                                      >
+                    <Image x:ConnectionId='21' x:Name="mainImage" Grid.Column="1"/>
                 </Grid>
             </Grid>
 
@@ -60,16 +60,23 @@
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:ConnectionId='12' x:Name="leftButton" Content="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Height="auto" Width="auto"/>
-                    <Button x:ConnectionId='13' x:Name="rightButton" Content="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="6" Height="auto" Width="auto"/>
-                    <Image x:ConnectionId='14' x:Name="exportImage0" Grid.Column="1"/>
-                    <Image x:ConnectionId='15' x:Name="exportImage1" Grid.Column="2"/>
-                    <Image x:ConnectionId='16' x:Name="exportImage2" Grid.Column="3"/>
-                    <Image x:ConnectionId='17' x:Name="exportImage3" Grid.Column="4"/>
-                    <Image x:ConnectionId='18' x:Name="exportImage4" Grid.Column="5"/>
+                    <Button x:ConnectionId='13' x:Name="leftButton" Content="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Height="auto" Width="auto"                                     />
+                    <Button x:ConnectionId='14' x:Name="rightButton" Content="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="6" Height="auto" Width="auto"                                      />
+                    <Image x:ConnectionId='15' x:Name="exportImage0" Grid.Column="1"                                              />
+                    <Image x:ConnectionId='16' x:Name="exportImage1" Grid.Column="2"                                              />
+                    <Image x:ConnectionId='17' x:Name="exportImage2" Grid.Column="3"                                              />
+                    <Image x:ConnectionId='18' x:Name="exportImage3" Grid.Column="4"                                              />
+                    <Image x:ConnectionId='19' x:Name="exportImage4" Grid.Column="5"                                              />
                 </Grid>
-                <Button x:ConnectionId='10' x:Name="exportImages" Content="Export" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row ="0" Height="32"/>
-                <TextBox x:ConnectionId='11' x:Name="exportedImages" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Exported Photos" VerticalAlignment="Top" Grid.Row ="0" />
+                <Grid Grid.Row ="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:ConnectionId='11' x:Name="DeleteImage" Content="Delete Image" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column ="1" Height="32"                          />
+                    <TextBox x:ConnectionId='12' x:Name="exportedImages" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Exported Photos" VerticalAlignment="Top" Grid.Column ="0" />
+                </Grid>
+                <Button x:ConnectionId='10' x:Name="exportImages" Content="Export" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row ="0" Height="32"                           />
             </Grid>
         </Grid>
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Column="1">
