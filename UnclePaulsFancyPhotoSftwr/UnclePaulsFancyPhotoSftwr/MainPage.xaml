@@ -1,0 +1,113 @@
+﻿<Page
+    x:Class="UnclePaulsSuperFancyPhotoSoftware.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UnclePaulsSuperFancyPhotoSoftware"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!-- Main Coulumn Defenitions -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Column="0">
+            <!-- Bottom Row Defenitions -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.RowSpan="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="ToolsText" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Tools" VerticalAlignment="Top" Grid.Row="0"/>
+                    <Button x:Name="addCutter" Content="Add Cutter" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Click="addCutter_Click"/>
+                    <!--<Button x:Name="removeCutter" Content="Remove Cutter" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2"/> -->
+                    <Button x:Name="cut" Content="Cut" HorizontalAlignment="Center" VerticalAlignment="Stretch" Grid.Row="3" Margin="38,0" Click="cut_Click"/>
+                </Grid>
+                <Grid Grid.Column="1" Name="photoSquare" SizeChanged="photoSquare_SizeChanged">
+                    <Image x:Name="mainImage" Grid.Column="1"/>
+                </Grid>
+            </Grid>
+
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Row="1">
+                <!-- Bottom Row UI Defenitions -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+                <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Row="1">
+                    <!-- Left Column Picture Defenitions -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="leftButton" Content="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Height="auto" Width="auto" Click="MoveExportedImagesLeft_Click"/>
+                    <Button x:Name="rightButton" Content="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="6" Height="auto" Width="auto" Click="MoveExportedImagesRight_Click"/>
+                    <Image x:Name="exportImage0" Grid.Column="1" PointerPressed="exportUIImage0Selected_Click"/>
+                    <Image x:Name="exportImage1" Grid.Column="2" PointerPressed="exportUIImage1Selected_Click"/>
+                    <Image x:Name="exportImage2" Grid.Column="3" PointerPressed="exportUIImage2Selected_Click"/>
+                    <Image x:Name="exportImage3" Grid.Column="4" PointerPressed="exportUIImage3Selected_Click"/>
+                    <Image x:Name="exportImage4" Grid.Column="5" PointerPressed="exportUIImage4Selected_Click"/>
+                </Grid>
+                <Grid Grid.Row ="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="DeleteImage" Content="Delete Image" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column ="1" Height="32" Click="DeleteImage_Click"/>
+                    <TextBlock x:Name="exportedImagesText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Exported Photos" VerticalAlignment="Top" Grid.Column ="0" />
+                </Grid>
+                <Button x:Name="exportImages" Content="Export" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row ="0" Height="32" Click="exportImages_Click"/>
+            </Grid>
+        </Grid>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Column="1">
+            <!-- Left Column UI Defenitions -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Row="1">
+                <!-- Left Column Picture Defenitions -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="upButton" Content="Up" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" Height="auto" Width="auto" Click="MoveImportedImagesUp_Click"/>
+                <Button x:Name="downButton" Content="Down" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="6" Height="auto" Width="auto" Click="MoveImportedImagesDown_Click"/>
+                <Image x:Name="importimage0" Grid.Row="1" PointerPressed="importUIImage0Selected_Click"/>
+                <Image x:Name="importimage1" Grid.Row="2" PointerPressed="importUIImage1Selected_Click"/>
+                <Image x:Name="importimage2" Grid.Row="3" PointerPressed="importUIImage2Selected_Click"/>
+                <Image x:Name="importimage3" Grid.Row="4" PointerPressed="importUIImage3Selected_Click"/>
+                <Image x:Name="importimage4" Grid.Row="5" PointerPressed="importUIImage4Selected_Click"/>
+            </Grid>
+            <Button x:Name="importImages" Content="Import" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row ="0" Click="importImages_Click"/>
+            <TextBlock x:Name="importedImagesText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Imported Photos" VerticalAlignment="Top" Grid.Row ="0" />
+        </Grid>
+        <CaptureElement HorizontalAlignment="Left" Height="0" Margin="-132,65,0,0" VerticalAlignment="Top" Width="2"/>
+    </Grid>
+</Page>
