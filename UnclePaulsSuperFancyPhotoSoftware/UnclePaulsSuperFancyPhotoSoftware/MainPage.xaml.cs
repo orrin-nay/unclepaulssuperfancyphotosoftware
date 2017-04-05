@@ -174,6 +174,8 @@ namespace UnclePaulsSuperFancyPhotoSoftware
             mainImage.Source = importedImagesList[number + importOffset].Image;
             SelectedImage.File = importedImagesList[number + importOffset].File;
             SelectedImage.Image = importedImagesList[number + importOffset].Image;
+            deleteCutters();
+
         }
 
 
@@ -234,7 +236,20 @@ namespace UnclePaulsSuperFancyPhotoSoftware
                 UpdateExportUIImages();
             }
         }
+        private void deleteCutters()
+        {
+            foreach(CropSquare square in cropSquares)
+            {
 
+                layoutRoot.Children.Remove(square.Rectangle);
+                layoutRoot.Children.Remove(square.x);
+                layoutRoot.Children.Remove(square.y);
+                layoutRoot.Children.Remove(square.z);
+                layoutRoot.Children.Remove(square.w);
+                layoutRoot.Children.Remove(square.rotation);
+            }
+            cropSquares = new List<CropSquare>();
+        }
         private void addCutter_Click(object sender, RoutedEventArgs e)
         {
             var newCrop = new CropSquare();
@@ -368,6 +383,7 @@ namespace UnclePaulsSuperFancyPhotoSoftware
                 exportedImagesList.Add(await CSWindowsStoreAppCropBitmap.CropBitmap.GetCroppedBitmapAsync(SelectedImage.File, x, new Size(Math.Abs(x.X - y.X), Math.Abs(x.Y - w.Y)), 1));
                 UpdateExportUIImages();
             }
+            deleteCutters();
 
         }
 

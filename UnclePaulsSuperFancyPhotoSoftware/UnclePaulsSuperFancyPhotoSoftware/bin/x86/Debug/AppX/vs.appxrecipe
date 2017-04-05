@@ -10,7 +10,7 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>8141b901-1fe6-4a56-aae7-c1f7645fc309</PackageIdentityName>
     <PackageIdentityPublisher>CN=Naylo</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\obj\x86\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\obj\x86\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -25,16 +25,16 @@
     <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-01-04T05:55:22.498</Modified>
+      <Modified>2017-04-05T05:58:51.281</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\UnclePaulsSuperFancyPhotoSoftware.exe">
+    <AppxPackagedFile Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\UnclePaulsSuperFancyPhotoSoftware.exe">
       <PackagePath>entrypoint\UnclePaulsSuperFancyPhotoSoftware.exe</PackagePath>
-      <Modified>2017-01-04T05:55:22.277</Modified>
+      <Modified>2017-04-05T05:58:50.999</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Naylo\.nuget\packages\Microsoft.CSharp\4.0.0\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -448,60 +448,60 @@
       <PackagePath>System.Xml.XmlSerializer.dll</PackagePath>
       <Modified>2015-07-23T05:11:12.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2016-12-18T06:14:11.487</Modified>
+      <Modified>2017-04-05T05:47:39.192</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
-      <Modified>2015-09-21T00:30:08.000</Modified>
+      <Modified>2017-04-05T05:47:39.177</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-09-21T00:30:08.000</Modified>
+      <Modified>2017-04-05T05:47:39.177</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-09-21T00:30:08.000</Modified>
+      <Modified>2017-04-05T05:47:39.177</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-09-21T00:30:08.000</Modified>
+      <Modified>2017-04-05T05:47:39.177</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-09-21T00:30:08.000</Modified>
+      <Modified>2017-04-05T05:47:39.177</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-09-21T00:30:08.000</Modified>
+      <Modified>2017-04-05T05:47:39.177</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-09-21T00:30:08.000</Modified>
+      <Modified>2017-04-05T05:47:39.177</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\UnclePaulsSuperFancyPhotoSoftware.xr.xml">
+    <AppxPackagedFile Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\UnclePaulsSuperFancyPhotoSoftware.xr.xml">
       <PackagePath>UnclePaulsSuperFancyPhotoSoftware.xr.xml</PackagePath>
-      <Modified>2016-12-28T18:25:07.080</Modified>
+      <Modified>2017-04-05T05:47:44.023</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
       <Modified>2016-12-18T05:34:33.318</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-01-04T05:54:11.415</Modified>
+      <Modified>2017-04-05T05:49:06.497</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Naylo\OneDrive\Documents\Visual Studio 2015\Projects\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\Core\UnclePaulsSuperFancyPhotoSoftware.exe">
+    <AppxPackagedFile Include="C:\Users\Naylo\Desktop\test\unclepaulssuperfancyphotosoftware\UnclePaulsSuperFancyPhotoSoftware\UnclePaulsSuperFancyPhotoSoftware\bin\x86\Debug\Core\UnclePaulsSuperFancyPhotoSoftware.exe">
       <PackagePath>UnclePaulsSuperFancyPhotoSoftware.exe</PackagePath>
-      <Modified>2017-01-04T05:55:22.495</Modified>
+      <Modified>2017-04-05T05:58:51.275</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
